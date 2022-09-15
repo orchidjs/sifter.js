@@ -23,7 +23,7 @@ import * as T from 'types.ts';
 
 export default class Sifter{
 
-	public items; // []|{};
+	public items: any; // []|{};
 	public settings: T.Settings;
 
 	/**
