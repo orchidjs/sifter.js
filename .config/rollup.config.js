@@ -37,7 +37,7 @@ configs.push({
 	output:{
 		dir: path.resolve(__dirname,'../dist/esm'),
 		format: 'esm',
-		preserveModules: true,
+		preserveModules: false,
 		sourcemap: true,
 		banner: banner,
 	},
@@ -50,7 +50,7 @@ configs.push({
 	output:{
 		dir: path.resolve(__dirname,'../dist/cjs'),
 		format: 'cjs',
-		preserveModules: true,
+		preserveModules: false,
 		sourcemap: true,
 		banner: banner,
 	},

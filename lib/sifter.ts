@@ -66,11 +66,11 @@ export default class Sifter{
 
 			if( word.length > 0 ){
 				if( this.settings.diacritics ){
-					regex = getPattern(word);
+					regex = getPattern(word) || null;
 				}else{
 					regex = escape_regex(word);
 				}
-				if( respect_word_boundaries ) regex = "\\b"+regex;
+				if( regex && respect_word_boundaries ) regex = "\\b"+regex;
 			}
 
 			tokens.push({
