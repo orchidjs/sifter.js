@@ -83,11 +83,12 @@ var timed_report = function(title, fn) {
 	var t_delta = t_new - t_old;
 	var p_delta = Math.round(t_delta / t_old * 100, 1);
 
+
 	reports_new[title] = t_new;
 	process.stdout.write('\033[1;39m' + humanize.numberFormat(t_new / 1000) + ' ms\033[0;39m (score: ' + (t_new / time_baseline).toFixed(6) + ')\033[0;39m ');
 	if (t_old) {
 		process.stdout.write('\t' + (Math.abs(p_delta) < 5 ? '' : (t_delta > 0 ? '\033[31m' : '\033[32m')));
-		process.stdout.write((t_delta > 0 ? '-' : '+') + Math.abs(p_delta) + '% (' + (t_delta > 0 ? '+' : '') + humanize.numberFormat(Math.round(t_delta / 1000), 0) + 'ms)');
+		process.stdout.write((t_delta > 0 ? '+' : '-') + Math.abs(p_delta) + '% (' + (t_delta > 0 ? '+' : '') + humanize.numberFormat(Math.round(t_delta / 1000), 0) + 'ms)');
 		process.stdout.write('\033[0;39m');
 	}
 	process.stdout.write('\t' + title);
