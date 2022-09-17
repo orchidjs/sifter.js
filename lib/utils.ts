@@ -1,6 +1,5 @@
 
-import { asciifold } from '@orchidjs/diacritics';
-
+import { asciifold } from '@orchidjs/unicode-variants';
 
 // @ts-ignore TS2691 "An import path cannot end with a '.ts' extension"
 import * as T from './types.ts';

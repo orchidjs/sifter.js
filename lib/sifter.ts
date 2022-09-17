@@ -16,7 +16,7 @@
 
  // @ts-ignore TS2691 "An import path cannot end with a '.ts' extension"
 import { scoreValue, getAttr, getAttrNesting, propToArray, iterate, cmp } from './utils.ts';
-import { diacriticRegexPoints,escape_regex } from '@orchidjs/diacritics';
+import { getPattern, escape_regex } from '@orchidjs/unicode-variants';
 
 // @ts-ignore TS2691 "An import path cannot end with a '.ts' extension"
 import * as T from 'types.ts';
@@ -66,7 +66,7 @@ export default class Sifter{
 
 			if( word.length > 0 ){
 				if( this.settings.diacritics ){
-					regex = diacriticRegexPoints(word);
+					regex = getPattern(word);
 				}else{
 					regex = escape_regex(word);
 				}
