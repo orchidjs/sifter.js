@@ -38,6 +38,7 @@ export const scoreValue = (value:string, token:T.Token, weight:number ):number =
 	if (!value) return 0;
 
 	value = value + '';
+	if( token.regex == null ) return 0;
 	pos = value.search(token.regex);
 	if (pos === -1) return 0;
 

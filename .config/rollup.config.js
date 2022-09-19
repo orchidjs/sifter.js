@@ -7,7 +7,7 @@ var configs = [];
 const banner = `/*! sifter.js | https://github.com/orchidjs/sifter.js | Apache License (v2) */`;
 
 const extensions = [
-  '.js', '.jsx', '.ts', '.tsx',
+  '.js', '.jsx', '.ts', '.tsx', '.mjs',
 ];
 
 var babel_config = babel({

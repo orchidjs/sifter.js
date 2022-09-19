@@ -87,13 +87,17 @@ class Sifter{
 	 * Good matches will have a higher score than poor matches.
 	 * If an item is not a match, 0 will be returned by the function.
 	 *
-	 * @returns {function}
+	 * @returns {T.ScoreFn}
 	 */
 	getScoreFunction(query:string, options:T.Options ){
 		var search = this.prepareSearch(query, options);
 		return this._getScoreFunction(search);
 	}
 
+	/**
+	 * @returns {T.ScoreFn}
+	 *
+	 */
 	_getScoreFunction(search:T.PrepareObj ){
 		const tokens		= search.tokens,
 		token_count			= tokens.length;
@@ -187,19 +191,18 @@ class Sifter{
 	 *
 	 * @return function(a,b)
 	 */
-	getSortFunction(query:string, options:T.Options) {
+	getSortFunction(query:string, options:Partial<T.Options>) {
 		var search  = this.prepareSearch(query, options);
 		return this._getSortFunction(search);
 	}
 
 	_getSortFunction(search:T.PrepareObj){
-		var i, n, implicit_score;
+		var implicit_score,
+		sort_flds:T.Sort[]	= [];
 
 		const self	= this,
 		options		= search.options,
-		sort		= (!search.query && options.sort_empty) ? options.sort_empty : options.sort,
-		sort_flds:T.Sort[]		= [],
-		multipliers:number[]	= [];
+		sort		= (!search.query && options.sort_empty) ? options.sort_empty : options.sort;
 
 
 		if( typeof sort == 'function' ){
@@ -229,8 +232,8 @@ class Sifter{
 		// sort field, unless it's manually specified
 		if (search.query) {
 			implicit_score = true;
-			for (i = 0, n = sort_flds.length; i < n; i++) {
-				if (sort_flds[i].field === '$score') {
+			for( let fld of sort_flds ){
+				if( fld.field === '$score' ){
 					implicit_score = false;
 					break;
 				}
@@ -238,13 +241,10 @@ class Sifter{
 			if (implicit_score) {
 				sort_flds.unshift({field: '$score', direction: 'desc'});
 			}
+
+		// without a search.query, all items will have the same score
 		} else {
-			for (i = 0, n = sort_flds.length; i < n; i++) {
-				if (sort_flds[i].field === '$score') {
-					sort_flds.splice(i, 1);
-					break;
-				}
-			}
+			sort_flds = sort_flds.filter((fld) => fld.field !== '$score' );
 		}
 
 
@@ -255,14 +255,11 @@ class Sifter{
 		}
 
 		return function(a:T.ResultItem, b:T.ResultItem) {
-			var i, result, field;
-			for (i = 0; i < sort_flds_count; i++) {
-				field = sort_flds[i].field;
+			var result, field;
+			for( let sort_fld of sort_flds ){
+				field = sort_fld.field;
 
-				let multiplier = multipliers[i];
-				if( multiplier == undefined ){
-					multiplier = sort_flds[i].direction === 'desc' ? -1 : 1;
-				}
+				let	multiplier = sort_fld.direction === 'desc' ? -1 : 1;
 
 				result = multiplier * cmp(
 					get_field(field, a),
@@ -283,7 +280,7 @@ class Sifter{
 	 */
 	prepareSearch(query:string, optsUser:Partial<T.Options>):T.PrepareObj {
 		const weights:T.Weights = {};
-		var options		= Object.assign({},optsUser);
+		var options		= Object.assign({},optsUser) as T.Options;
 
 		propToArray(options,'sort');
 		propToArray(options,'sort_empty');
@@ -304,7 +301,7 @@ class Sifter{
 
 
 		return {
-			options		: options,
+			options		: options as T.Options,
 			query		: query.toLowerCase().trim(),
 			tokens		: this.tokenize(query, options.respect_word_boundaries, weights),
 			total		: 0,
@@ -319,14 +316,14 @@ class Sifter{
 	 *
 	 */
 	search(query:string, options:T.Options) : T.PrepareObj {
-		var self = this, score, search:T.PrepareObj;
+		var self = this, score, search: T.PrepareObj;
 
 		search  = this.prepareSearch(query, options);
 		options = search.options;
 		query   = search.query;
 
 		// generate result scoring function
-		const fn_score = options.score || self._getScoreFunction(search);
+		const fn_score:T.ScoreFn = options.score || self._getScoreFunction(search);
 
 		// perform search and sort
 		if (query.length) {
@@ -355,4 +352,4 @@ class Sifter{
 	};
 }
 
-export { Sifter, scoreValue, getAttr, getAttrNesting, propToArray, iterate, cmp, getPattern, escape_regex }
+export { Sifter, scoreValue, getAttr, getAttrNesting, propToArray, iterate, cmp, getPattern }

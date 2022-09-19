@@ -1,5 +1,5 @@
 
-import Sifter from './sifter';
+import {Sifter} from './sifter';
 
 export type Field = {
 	field: string,
@@ -15,14 +15,15 @@ export type SortFn = (this:Sifter, a:ResultItem, b:ResultItem)=>number;
 
 export type Options = {
  	fields: Field[],
- 	score: ()=>any,
- 	filter: boolean,
- 	limit: number,
-	sort: SortFn|Sort[],
- 	sort_empty: SortFn|Sort[],
- 	nesting: boolean,
-	respect_word_boundaries: boolean,
 	conjunction: string,
+	sort: SortFn|Sort[],
+	nesting: boolean,
+
+ 	score?: ScoreFn,
+ 	filter?: boolean,
+ 	sort_empty?: SortFn|Sort[],
+	respect_word_boundaries?: boolean,
+	limit?: number,
 }
 
 export type Token = {
@@ -52,3 +53,6 @@ export type ResultItem = {
 	score: number,
 	id: number|string,
 }
+
+
+export type ScoreFn = (item:ResultItem) => number;
