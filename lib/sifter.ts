@@ -14,14 +14,11 @@
  * @author Brian Reavis <brian@thirdroute.com>
  */
 
- // @ts-ignore TS2691 "An import path cannot end with a '.ts' extension"
-import { scoreValue, getAttr, getAttrNesting, propToArray, iterate, cmp } from './utils.ts';
+import { scoreValue, getAttr, getAttrNesting, propToArray, iterate, cmp } from './utils';
 import { getPattern, escape_regex } from '@orchidjs/unicode-variants';
+import * as T from './types';
 
-// @ts-ignore TS2691 "An import path cannot end with a '.ts' extension"
-import * as T from 'types.ts';
-
-export default class Sifter{
+class Sifter{
 
 	public items: any; // []|{};
 	public settings: T.Settings;
@@ -357,3 +354,5 @@ export default class Sifter{
 		return search;
 	};
 }
+
+export { Sifter, scoreValue, getAttr, getAttrNesting, propToArray, iterate, cmp, getPattern, escape_regex }

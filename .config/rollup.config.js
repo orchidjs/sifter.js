@@ -1,5 +1,6 @@
 import babel from '@rollup/plugin-babel';
 import { terser } from 'rollup-plugin-terser';
+import resolve from '@rollup/plugin-node-resolve'; // so Rollup can resolve imports without file extensions and `node_modules`
 import path from 'path';
 
 var configs = [];
@@ -13,6 +14,10 @@ var babel_config = babel({
 	extensions: extensions,
 	babelHelpers: 'bundled',
 	configFile: path.resolve(__dirname,'babel.config.json'),
+});
+
+var resolve_config = resolve({
+	extensions: extensions,
 });
 
 var terser_config = terser({
@@ -37,11 +42,11 @@ configs.push({
 	output:{
 		dir: path.resolve(__dirname,'../dist/esm'),
 		format: 'esm',
-		preserveModules: false,
+		preserveModules: true,
 		sourcemap: true,
 		banner: banner,
 	},
-	plugins:[babel_config] // resolve_config
+	plugins:[babel_config,resolve_config]
 });
 
 // cjs
@@ -54,7 +59,7 @@ configs.push({
 		sourcemap: true,
 		banner: banner,
 	},
-	plugins:[babel_config] //resolve_config
+	plugins:[babel_config,resolve_config]
 });
 
 
@@ -70,6 +75,7 @@ configs.push({
 		},
 		plugins:[
 			babel_config,
+			resolve_config
 		]
 	});
 
@@ -85,6 +91,7 @@ configs.push({
 		},
 		plugins:[
 			babel_config,
+			resolve_config,
 			terser_config
 		]
 	});

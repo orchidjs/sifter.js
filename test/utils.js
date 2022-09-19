@@ -1,5 +1,5 @@
 var assert = require('assert');
-var utils = require('../dist/cjs/utils.js');
+var sifter = require('@orchidjs/sifter');
 
 describe('#prepareSearch()', function() {
 
@@ -8,20 +8,20 @@ describe('#prepareSearch()', function() {
 		var from	= 'aḀḁĂăÂâǍǎȺⱥȦȧẠạÄäÀàÁáĀāÃãÅåąĄÃąĄ';
 		var to		= 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
 
-		assert.strictEqual( utils.cmp(from,to), 0 );
+		assert.strictEqual( sifter.cmp(from,to), 0 );
 	});
 
 	it('getAttr should return void when invalid object passed', function() {
-		assert.equal( utils.getAttr(null,'test'), null);
+		assert.equal( sifter.getAttr(null,'test'), null);
 	});
 
 	it('getAttrNesting should return void when invalid object passed', function() {
-		assert.equal( utils.getAttrNesting(null,'test'), null);
+		assert.equal( sifter.getAttrNesting(null,'test'), null);
 	});
 
 	it('scoreValue should cast non-string values to string', function() {
 		var token = {string:'a',regex:new RegExp('a','i')};
-		var score = utils.scoreValue([], token, 1);
+		var score = sifter.scoreValue([], token, 1);
 		assert.equal( score, 0);
 	});
 

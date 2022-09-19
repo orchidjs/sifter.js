@@ -1,8 +1,6 @@
 
 import { asciifold } from '@orchidjs/unicode-variants';
-
-// @ts-ignore TS2691 "An import path cannot end with a '.ts' extension"
-import * as T from './types.ts';
+import * as T from './types';
 
 
 /**
@@ -75,7 +73,7 @@ export const propToArray = (obj:{[key:string]:any}, key:string) => {
  * ```
  *
  */
-export const iterate = (object:[]|{[key:string]:any}, callback:(value:any,key:number|string)=>any) => {
+export const iterate = (object:[]|{[key:string]:any}, callback:(value:any,key:any)=>any) => {
 
 	if ( Array.isArray(object)) {
 		object.forEach(callback);

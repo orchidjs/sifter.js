@@ -1,5 +1,5 @@
 var assert = require('assert');
-var Sifter = require('../dist/cjs/sifter.js');
+var {Sifter} = require('@orchidjs/sifter');
 
 
 describe('#search()', function() {
