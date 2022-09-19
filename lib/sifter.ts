@@ -125,8 +125,8 @@ export default class Sifter{
 
 			if (field_count === 1) {
 				return function(token:T.Token, data:{}) {
-					const field = fields[0].field;
-					return scoreValue(getAttrFn(data, field), token, weights[field]);
+					const field = fields[0]!.field;
+					return scoreValue(getAttrFn(data, field), token, weights[field]||1);
 				};
 			}
 
@@ -158,15 +158,15 @@ export default class Sifter{
 
 		if (token_count === 1) {
 			return function(data:{}) {
-				return scoreObject(tokens[0], data);
+				return scoreObject(tokens[0]!, data);
 			};
 		}
 
 		if (search.options.conjunction === 'and') {
 			return function(data:{}) {
-				var i = 0, score, sum = 0;
-				for (; i < token_count; i++) {
-					score = scoreObject(tokens[i], data);
+				var score, sum = 0;
+				for( let token of tokens){
+					score = scoreObject(token, data);
 					if (score <= 0) return 0;
 					sum += score;
 				}
@@ -221,9 +221,9 @@ export default class Sifter{
 
 		// parse options
 		if (sort) {
-			for (i = 0, n = sort.length; i < n; i++) {
-				if (search.query || sort[i].field !== '$score') {
-					sort_flds.push(sort[i]);
+			for( let s of sort ){
+				if (search.query || s.field !== '$score') {
+					sort_flds.push(s);
 				}
 			}
 		}
