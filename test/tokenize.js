@@ -1,5 +1,5 @@
 var assert = require('assert');
-var {Sifter} = require('@orchidjs/sifter');
+var {Sifter} = require('../dist/cjs/sifter.js');
 
 describe('#tokenize()', function() {
 	var sifter, tokens;
