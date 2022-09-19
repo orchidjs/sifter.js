@@ -89,7 +89,7 @@ class Sifter{
 	 *
 	 * @returns {T.ScoreFn}
 	 */
-	getScoreFunction(query:string, options:T.Options ){
+	getScoreFunction(query:string, options:T.UserOptions ){
 		var search = this.prepareSearch(query, options);
 		return this._getScoreFunction(search);
 	}
@@ -191,7 +191,7 @@ class Sifter{
 	 *
 	 * @return function(a,b)
 	 */
-	getSortFunction(query:string, options:Partial<T.Options>) {
+	getSortFunction(query:string, options:T.UserOptions) {
 		var search  = this.prepareSearch(query, options);
 		return this._getSortFunction(search);
 	}
@@ -278,7 +278,7 @@ class Sifter{
 	 * with results.
 	 *
 	 */
-	prepareSearch(query:string, optsUser:Partial<T.Options>):T.PrepareObj {
+	prepareSearch(query:string, optsUser:T.UserOptions):T.PrepareObj {
 		const weights:T.Weights = {};
 		var options		= Object.assign({},optsUser) as T.Options;
 
@@ -315,7 +315,7 @@ class Sifter{
 	 * Searches through all items and returns a sorted array of matches.
 	 *
 	 */
-	search(query:string, options:T.Options) : T.PrepareObj {
+	search(query:string, options:T.UserOptions) : T.PrepareObj {
 		var self = this, score, search: T.PrepareObj;
 
 		search  = this.prepareSearch(query, options);

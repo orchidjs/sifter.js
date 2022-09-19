@@ -13,12 +13,26 @@ export type Sort = {
 
 export type SortFn = (this:Sifter, a:ResultItem, b:ResultItem)=>number;
 
+export type UserOptions = {
+ 	fields: string[]|Field[],
+	conjunction: string,
+	sort: string|SortFn|Sort[],
+
+	nesting?: boolean,
+ 	score?: ScoreFn,
+ 	filter?: boolean,
+ 	sort_empty?: SortFn|Sort[],
+	respect_word_boundaries?: boolean,
+	limit?: number,
+}
+
+
 export type Options = {
  	fields: Field[],
 	conjunction: string,
 	sort: SortFn|Sort[],
-	nesting: boolean,
 
+	nesting?: boolean,
  	score?: ScoreFn,
  	filter?: boolean,
  	sort_empty?: SortFn|Sort[],
