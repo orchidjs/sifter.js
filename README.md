@@ -20,6 +20,8 @@ $ npm install @orchidjs/sifter # node.js
 ## Usage
 
 ```js
+import {Sifter} from '@orchidjs/sifter';
+
 var sifter = new Sifter([
 	{title: 'Annapurna I', location: 'Nepal', continent: 'Asia'},
 	{title: 'Annapurna II', location: 'Nepal', continent: 'Asia'},
