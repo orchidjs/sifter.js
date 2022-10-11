@@ -5,8 +5,8 @@ describe('#prepareSearch()', function() {
 
 	it('should remove accents', function() {
 
-		var from	= 'aḀḁĂăÂâǍǎȺⱥȦȧẠạÄäÀàÁáĀāÃãÅåąĄÃąĄ';
-		var to		= 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+		var from	= 'aḀḁĂăÂâǍǎȺⱥẠạÄäÀàÁáĀāÃãÅåąĄÃąĄ';
+		var to		= 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
 
 		assert.strictEqual( sifter.cmp(from,to), 0 );
 	});
