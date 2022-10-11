@@ -66,6 +66,6 @@
     "/lib"
   ],
   "dependencies": {
-    "@orchidjs/unicode-variants": "^1.0.2"
+    "@orchidjs/unicode-variants": "^1.0.3"
   }
 }
