@@ -43,7 +43,7 @@
     "build:esm": "tsc -p .config/tsconfig.esm.json",
     "build:cjs": "tsc -p .config/tsconfig.cjs.json && echo '{\"type\":\"commonjs\"}' > ./dist/cjs/package.json",
     "build:umd": "npx rollup -c .config/rollup.config.mjs && echo '{\"type\":\"commonjs\"}' > ./dist/umd/package.json",
-    "build:types": "tsc -p .config/tsconfig.json --emitDeclarationOnly"
+    "build:types": "tsc -p .config/tsconfig.types.json"
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.17.0",
