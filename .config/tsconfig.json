@@ -2,18 +2,18 @@
 	"include": ["../lib/**/*"],
 	"compilerOptions": {
 		"allowJs": true,
-	    "checkJs": true,
-	    "strict": true,
-		"target": "esnext",
-		"module": "esnext",
+		"checkJs": true,
+		"strict": true,
+		"target": "ESNext",
+		"module": "NodeNext",
+		"moduleResolution": "NodeNext",
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
 		"allowUnreachableCode": false,
 		"noUncheckedIndexedAccess": true,
-
 		"declaration": true,
-		"declarationDir": "../dist/types",
 		"isolatedModules": true,
-		"moduleResolution": "node"
+		"sourceMap": true,
+		"rewriteRelativeImportExtensions": true,
 	},
 }

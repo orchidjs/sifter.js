@@ -1,9 +1,12 @@
 import babel from '@rollup/plugin-babel';
-import { terser } from 'rollup-plugin-terser';
+import terser from '@rollup/plugin-terser';
 import resolve from '@rollup/plugin-node-resolve'; // so Rollup can resolve imports without file extensions and `node_modules`
 import path from 'path';
+import { fileURLToPath } from 'url';
 
-var configs = [];
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+const configs = [];
 const banner = `/*! sifter.js | https://github.com/orchidjs/sifter.js | Apache License (v2) */`;
 
 const extensions = [
@@ -33,33 +36,6 @@ var terser_config = terser({
       }
     },
   },
-});
-
-
-// esm
-configs.push({
-	input: path.resolve(__dirname,'../lib/sifter.ts'),
-	output:{
-		dir: path.resolve(__dirname,'../dist/esm'),
-		format: 'esm',
-		preserveModules: true,
-		sourcemap: true,
-		banner: banner,
-	},
-	plugins:[babel_config,resolve_config]
-});
-
-// cjs
-configs.push({
-	input: path.resolve(__dirname,'../lib/sifter.ts'),
-	output:{
-		dir: path.resolve(__dirname,'../dist/cjs'),
-		format: 'cjs',
-		preserveModules: false,
-		sourcemap: true,
-		banner: banner,
-	},
-	plugins:[babel_config,resolve_config]
 });
 
 

@@ -1,6 +1,6 @@
 
 import { asciifold } from '@orchidjs/unicode-variants';
-import * as T from './types';
+import * as T from './types.ts';
 
 
 /**

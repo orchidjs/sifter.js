@@ -1,5 +1,5 @@
 
-import {Sifter} from './sifter';
+import {Sifter} from './sifter.ts';
 
 export type Field = {
 	field: string,
