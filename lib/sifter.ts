@@ -14,9 +14,9 @@
  * @author Brian Reavis <brian@thirdroute.com>
  */
 
-import { scoreValue, getAttr, getAttrNesting, propToArray, iterate, cmp } from './utils';
+import { scoreValue, getAttr, getAttrNesting, propToArray, iterate, cmp } from './utils.ts';
 import { getPattern, escape_regex } from '@orchidjs/unicode-variants';
-import * as T from './types';
+import * as T from './types.ts';
 
 class Sifter{
 
@@ -353,3 +353,4 @@ class Sifter{
 }
 
 export { Sifter, scoreValue, getAttr, getAttrNesting, propToArray, iterate, cmp, getPattern }
+export * from './types.ts';
