@@ -64,21 +64,23 @@ if ! [[ "$VERSION" =~ ^([0-9]\.[0-9]\.[0-9]) ]]; then
 fi
 
 
-# make sure tests pass
-if ! npm test; then
-	echo 'Tests failed... cannot create release'
+# update package.json and package-lock.json
+if ! npm version --git-tag-version=false $VERSION; then
+	echo 'Version not updated'
 	exit
 fi
 
-# update package.json and package-lock.json
-if ! sed -i 's/"version": "[^"]*"/"version": "'$VERSION'"/' package.json; then
-	echo 'version not replaced in package-lock.json'
-	exit
-fi
 
 # build from source
 if ! npm run build; then
 	echo 'Build failed... cannot create release'
+	exit
+fi
+
+
+# make sure tests pass
+if ! npm test; then
+	echo 'Tests failed... cannot create release'
 	exit
 fi
 
