@@ -11,7 +11,7 @@
     "autocomplete"
   ],
   "description": "A library for textually searching arrays and hashes of objects by property (or multiple properties). Designed specifically for autocomplete.",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "license": "Apache-2.0",
   "author": "Brian Reavis <brian@thirdroute.com>",
   "type": "module",
