@@ -353,3 +353,4 @@ class Sifter{
 }
 
 export { Sifter, scoreValue, getAttr, getAttrNesting, propToArray, iterate, cmp, getPattern }
+export * from './types.ts';
