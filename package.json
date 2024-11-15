@@ -24,10 +24,7 @@
       "require": "./dist/cjs/sifter.js"
     },
     "./types/*": "./dist/types/*",
-    "./dist/*": {
-      "import": "./dist/esm/*",
-      "require": "./dist/cjs/*"
-    },
+    "./dist/*": "./dist/*",
     "./package.json": "./package.json"
   },
   "repository": {
@@ -79,6 +76,6 @@
     "/lib"
   ],
   "dependencies": {
-    "@orchidjs/unicode-variants": "^1.0.4"
+    "@orchidjs/unicode-variants": "^1.1.2"
   }
 }
