@@ -63,9 +63,11 @@ export type Settings = {
 	diacritics:boolean
 }
 
-export type ResultItem = {
+export type ResultItem<T = any> = {
 	score: number,
 	id: number|string,
+	// the matched item itself, same as sifter.items[id]
+	item: T,
 }
 
 
