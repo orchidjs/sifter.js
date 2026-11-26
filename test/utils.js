@@ -19,6 +19,13 @@ describe('#prepareSearch()', function() {
 		assert.equal( sifter.getAttrNesting(null,'test'), null);
 	});
 
+	it('iterate should work with objects that have a "hasOwnProperty" key', function() {
+		var keys = [];
+		var obj = {hasOwnProperty: {text: 'a'}, constructor: {text: 'b'}};
+		sifter.iterate(obj, function(value, key) { keys.push(key); });
+		assert.deepEqual(keys, ['hasOwnProperty', 'constructor']);
+	});
+
 	it('scoreValue should cast non-string values to string', function() {
 		var token = {string:'a',regex:new RegExp('a','i')};
 		var score = sifter.scoreValue([], token, 1);
