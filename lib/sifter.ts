@@ -16,7 +16,7 @@
 
 import { scoreValue, getAttr, getAttrNesting, propToArray, iterate, cmp } from './utils.ts';
 import { getPattern, escape_regex } from '@orchidjs/unicode-variants';
-import * as T from './types.ts';
+import type * as T from './types.ts';
 
 class Sifter{
 
@@ -352,4 +352,4 @@ class Sifter{
 }
 
 export { Sifter, scoreValue, getAttr, getAttrNesting, propToArray, iterate, cmp, getPattern }
-export * from './types.ts';
+export type * from './types.ts';
