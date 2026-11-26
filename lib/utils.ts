@@ -82,7 +82,9 @@ export const iterate = (object:[]|{[key:string]:any}, callback:(value:any,key:an
 	}else{
 
 		for (var key in object) {
-			if (object.hasOwnProperty(key)) {
+			// do not call object.hasOwnProperty() directly: the object may have
+			// its own "hasOwnProperty" key (e.g. an item with that id)
+			if (Object.prototype.hasOwnProperty.call(object, key)) {
 				callback(object[key], key);
 			}
 		}

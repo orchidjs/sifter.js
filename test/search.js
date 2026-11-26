@@ -11,6 +11,20 @@ describe('#search()', function() {
 		});
 	});
 
+	it('should search items keyed by Object.prototype property names', function() {
+		var sifter = new Sifter({
+			hasOwnProperty: {text: 'hasOwnProperty'},
+			constructor: {text: 'constructor'},
+			toString: {text: 'toString'},
+			valueOf: {text: 'valueOf'}
+		});
+		var result = sifter.search('o', {fields: 'text'});
+		assert.deepEqual(result.items.map(function(item) { return item.id; }).sort(), ['constructor', 'hasOwnProperty', 'toString', 'valueOf']);
+
+		result = sifter.search('own', {fields: 'text'});
+		assert.deepEqual(result.items.map(function(item) { return item.id; }), ['hasOwnProperty']);
+	});
+
 	it('should allow "fields" option to be a string', function() {
 		var sifter = new Sifter([{field: 'a'}, {}]);
 		var result = sifter.search('a', {fields: 'field'});
