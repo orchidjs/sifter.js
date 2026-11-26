@@ -200,8 +200,7 @@ class Sifter{
 		var implicit_score,
 		sort_flds:T.Sort[]	= [];
 
-		const self	= this,
-		options		= search.options,
+		const options	= search.options,
 		sort		= (!search.query && options.sort_empty) ? options.sort_empty : options.sort;
 
 
@@ -216,7 +215,7 @@ class Sifter{
 		 */
 		const get_field = function(name:string, result:T.ResultItem):string|number {
 			if (name === '$score') return result.score;
-			return search.getAttrFn(self.items[result.id], name);
+			return search.getAttrFn(result.item, name);
 		};
 
 		// parse options
@@ -327,15 +326,15 @@ class Sifter{
 
 		// perform search and sort
 		if (query.length) {
-			iterate(self.items, (item:T.ResultItem, id:string|number) => {
+			iterate(self.items, (item:any, id:string|number) => {
 				score = fn_score(item);
 				if (options.filter === false || score > 0) {
-					search.items.push({'score': score, 'id': id});
+					search.items.push({'score': score, 'id': id, 'item': item});
 				}
 			});
 		} else {
-			iterate(self.items, (_:T.ResultItem, id:string|number) => {
-				search.items.push({'score': 1, 'id': id});
+			iterate(self.items, (item:any, id:string|number) => {
+				search.items.push({'score': 1, 'id': id, 'item': item});
 			});
 		}
 

@@ -25,6 +25,33 @@ describe('#search()', function() {
 		assert.deepEqual(result.items.map(function(item) { return item.id; }), ['hasOwnProperty']);
 	});
 
+	it('should return the matched item along with its id', function() {
+		var items = [{field: 'aaa'}, {field: 'bbb'}, {field: 'aab'}];
+		var sifter = new Sifter(items);
+		var result = sifter.search('aa', {fields: 'field', sort: [{field: 'field'}]});
+		assert.deepEqual(result.items.map(function(r) { return r.id; }), [0, 2]);
+		assert.strictEqual(result.items[0].item, items[0]);
+		assert.strictEqual(result.items[1].item, items[2]);
+	});
+
+	it('should return the matched item when searching a hash', function() {
+		var items = {a: {field: 'aaa'}, b: {field: 'bbb'}};
+		var sifter = new Sifter(items);
+		var result = sifter.search('b', {fields: 'field'});
+		assert.equal(result.items.length, 1);
+		assert.equal(result.items[0].id, 'b');
+		assert.strictEqual(result.items[0].item, items.b);
+	});
+
+	it('should return the item for every result with an empty query', function() {
+		var items = [{field: 'a'}, {field: 'b'}];
+		var sifter = new Sifter(items);
+		var result = sifter.search('', {fields: 'field'});
+		result.items.forEach(function(r) {
+			assert.strictEqual(r.item, items[r.id]);
+		});
+	});
+
 	it('should allow "fields" option to be a string', function() {
 		var sifter = new Sifter([{field: 'a'}, {}]);
 		var result = sifter.search('a', {fields: 'field'});

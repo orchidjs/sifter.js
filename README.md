@@ -39,12 +39,12 @@ var result = sifter.search('anna', {
 });
 ```
 
-Seaching will provide back meta information and an "items" array that contains objects with the index (or key, if searching a hash) and a score that represents how good of a match the item was. Items that did not match will not be returned.
+Seaching will provide back meta information and an "items" array that contains objects with the index (or key, if searching a hash), the matched item itself, and a score that represents how good of a match the item was. Items that did not match will not be returned.
 
 ```js
-{ score: 0.5757575757575758, id: 0 },
-{ score: 0.5555555555555555, id: 1 },
-{ score: 0.5384615384615384, id: 2 }
+{ score: 0.5757575757575758, id: 0, item: { title: 'Annapurna I', location: 'Nepal', continent: 'Asia' } },
+{ score: 0.5555555555555555, id: 1, item: { title: 'Annapurna II', location: 'Nepal', continent: 'Asia' } },
+{ score: 0.5384615384615384, id: 2, item: { title: 'Annapurna III', location: 'Nepal', continent: 'Asia' } }
 ```
 
 Items are sorted by best-match, primarily. If two or more items have the same score (which will be the case when searching with an empty string), it will resort to the fields listed in the "sort" option.
@@ -67,9 +67,9 @@ The full result comes back in the format of:
 	}],
 	total: 3,
 	items: [
-		{ score: 0.5757575757575758, id: 0 },
-     	{ score: 0.5555555555555555, id: 1 },
-     	{ score: 0.5384615384615384, id: 2 }
+		{ score: 0.5757575757575758, id: 0, item: { title: 'Annapurna I', ... } },
+		{ score: 0.5555555555555555, id: 1, item: { title: 'Annapurna II', ... } },
+		{ score: 0.5384615384615384, id: 2, item: { title: 'Annapurna III', ... } }
 	]
 }
 ```
@@ -120,9 +120,7 @@ fields: [
 
 ```js
 sort: function(a,b){
-	var item_a = this.items[a.id];
-	var item_b = this.items[b.id];
-	return item_a.fielda.localeCompare(item_b.fielda);
+	return a.item.fielda.localeCompare(b.item.fielda);
 },
 ```
 </td>
